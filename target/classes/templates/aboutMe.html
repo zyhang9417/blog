@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/homepage.css">
+</head>
+<body>
+<!--menu part-->
+<nav th:replace="_fragments :: menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Blog</h2>
+      <a href="#" class="item m-item m-mobile-hide"><i class="home icon"></i>Home Page</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="archive icon"></i>Archive</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="info icon"></i>About Me</a>
+      <div class="right item m-item m-mobile-hide">
+        <div class="ui icon transparent input">
+          <input type="text" placeholder="Search...">
+          <i class="search link inverted icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<!--main part-->
+<div class="m-container-small m-padding-tb-large">
+  <div class="ui container">
+    <div class="ui grid">
+      <div class="eleven wide column">
+        <img src="https://picsum.photos/id/250/800/450" alt="" class="ui rounded image">
+      </div>
+      <div class="five wide column">
+        <div class="ui top attached segment">
+          <div class="ui header">About Me</div>
+        </div>
+        <div class="ui attached segment m-text">
+          <p>Yuanhang is seeking for a SDE position</p>
+          <p>he loves programming</p>
+        </div>
+        <div class="ui attached segment">
+          <div class="ui orange basic left pointing label">编程</div>
+          <div class="ui orange basic left pointing label">摄影</div>
+          <div class="ui orange basic left pointing label">旅行</div>
+        </div>
+        <div class="ui attached segment">
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">Spring</div>
+          <div class="ui teal basic left pointing label m-margin-tb-tiny">MySQL</div>
+        </div>
+        <!--                        contact me-->
+        <div class="ui bottom attached segment">
+          <div class="container">
+            <div class="ui centered aligned grid">
+              <div class="center aligned column">
+                <a href="#" class="item"><i class="github large icon m-margin-lr-tiny"></i></a>
+                <a href="#" class="item"><i class="linkedin large icon m-margin-lr-tiny"></i></a>
+                <a href="#" class="item"><i class="facebook large icon m-margin-lr-tiny"></i></a>
+                <a href="#" class="item"><i class="instagram large icon m-margin-lr-tiny"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--foot part-->
+<footer th:replcae="_fragments :: footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+</script>
+</body>
+</html>
+

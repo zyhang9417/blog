@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搜索结果</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/homepage.css">
+</head>
+<body>
+<!--menu part-->
+<nav th:replace="_fragments :: menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Blog</h2>
+      <a href="#" class="item m-item m-mobile-hide"><i class="home icon"></i>Home Page</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="archive icon"></i>Archive</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="info icon"></i>About Me</a>
+      <div class="right item m-item m-mobile-hide">
+        <div class="ui icon transparent input">
+          <input type="text" placeholder="Search...">
+          <i class="search link inverted icon"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<!--main part-->
+<div class="m-container-small m-padding-tb-large">
+  <div class="ui container">
+    <!--head part-->
+    <div class="ui segment">
+      <div class="ui middle aligned two column grid">
+        <div class="column">
+          <h3 class="ui teal header">Search Results</h3>
+        </div>
+        <div class="right aligned column">
+          <h3 class="ui orange header m-inline-block" th:text="${page.totalElements}"> 14 </h3> blogs
+        </div>
+      </div>
+    </div>
+    <div class="ui teal top attached segment">
+      <div class="ui padded vertical segment m-padding-tb-big" th:each="blog : ${page.content}">
+        <div class="ui middle aligned mobile reversed stackable grid" >
+          <!-- articles -->
+          <div class="eleven wide column">
+            <h3 class="ui header"><a href="#" class="m-black" th:text="blog.title">文章标题</a></h3>
+            <p class="m-text" th:text="|${blog.content}......|">
+              使用CSS也好久了，但一直都是在使用“px”来设置Web元素的相关属性，未敢使用“em”。主要原因是，对其并不什么了解，只知道一点概念性的东西，前段时间在项目中要求使用“em”作为单位设置元素，所以从头对“em”学习了一回。稍为有一点理解，今天特意整理了一份博文与大家一起分享，希望对童子们有些许的帮助。
+            </p>
+            <div class="ui grid">
+              <div class="eleven wide column">
+                <div class="ui tiny horizontal link list">
+                  <!--                                                <div class="item">-->
+                  <!--                                                    <img src="static/images/cool-male.png" alt="" class="ui avatar image">-->
+                  <!--                                                    <div class="content m-pic-name"><a href="#" class="header">Yuanhang</a></div>-->
+                  <!--                                                </div>-->
+                  <div class="item">
+                    <i class="calendar icon"></i><span th:text="${#date.format(blog.updateTime, 'yyyy-MM-dd')}">2019-12-1</span>
+                  </div>
+                  <div class="item">
+                    <i class="eye icon"></i><span th:text="${blog.views}">2233</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right aligned five wide column">
+                <a href="#" target="_blank" class="ui teal basic label m-padding-tiny" th:text="blog.type.name">linux</a>
+              </div>
+            </div>
+          </div>
+          <!-- pictures -->
+          <div class="five wide column">
+            <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+              <img src="https://picsum.photos/id/1/800/450" th:src="@{blog.firstPicture}" alt="" class="ui rounded image">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+      <div class="ui middle aligned two column grid">
+        <div class="column">
+          <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}">
+            <i class="ui large teal chevron circle left icon"></i>
+          </a>
+        </div>
+        <div class="right aligned column">
+          <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}">
+            <i class="ui large teal chevron circle right icon"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--foot part-->
+<footer th:replace="_fragments :: footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+</script>
+</body>
+</html>
+

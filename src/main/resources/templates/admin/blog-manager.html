@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客管理</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/homepage.css">
+</head>
+<body>
+<!--menu part-->
+<nav th:replace="admin/_fragments :: menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Manager</h2>
+      <a href="#" class="item m-item m-mobile-hide"><i class="home icon"></i>Blog</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <div class="right m-item m-mobile-hide menu">
+        <div class="ui dropdown item">
+          <div class="text">
+            <img class="ui avatar image" src="../../static/images/elliot.jpg">
+            Yuanhang
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a href="#" class="item">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+<div class="ui attached pointing menu">
+  <div class="ui container">
+    <div class="right menu">
+      <a href="#" th:href="@{/admin/blog-manager/input}" class="item">发布</a>
+      <a href="#" th:href="@{/admin/blog-manager}" class="active teal item">列表</a>
+    </div>
+  </div>
+</div>
+
+<!--main part-->
+<div class="m-container-small m-padding-tb-large">
+  <div class="ui container">
+    <div class="ui secondary form segment">
+      <input type="hidden" name="page">
+      <!--                    查询信息-->
+      <div class="inline fields">
+        <div class="field">
+          <input type="text" name="title" placeholder="title">
+        </div>
+        <div class="field">
+          <div class="ui labeled action input">
+            <div class="ui type selection dropdown">
+              <input type="hidden" name="typeId">
+              <i class="dropdown icon"></i>
+              <div class="default text">type</div>
+              <div class="menu">
+                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+                <!--              <div class="item" data-value="2">开发者手册</div>-->
+                <!--              <div class="item" data-value="3">linux</div>-->
+              </div>
+            </div>
+            <button id="clear-btn" class="ui teal basic compact button">clear</button>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="recommend" name="recommend">
+            <label for="recommend">Recommend</label>
+          </div>
+        </div>
+        <div class="field">
+          <button type="button" id="search-btn" class="ui teal basic button">
+            <i class="search icon"></i>
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <!--                查询结果-->
+    <div id="table-container">
+      <table th:fragment="blogList" class="ui compact teal table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Recommend</th>
+          <th>Status</th>
+          <th>Update Time</th>
+          <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="blog, iterStat : ${page.content}">
+          <td th:text="${iterStat.count}">1</td>
+          <td th:text="${blog.title}">操作系统</td>
+          <td th:text="${blog.type.name}">基础知识</td>
+          <td th:text="${blog.recommend} ? 'yes' : 'no' " >Yes</td>
+          <td th:text="${blog.published} ? '发布' : '草稿' " >发布</td>
+          <td th:text="${blog.updateTime}">2019-10-20</td>
+          <td>
+            <a href="#" th:href="@{/admin/blog-manager/{id}/input(id=${blog.id})}" class="ui mini basic teal button">Edit</a>
+            <a href="#" th:href="@{/admin/blog-manager/{id}/delete(id=${blog.id})}" class="ui mini basic red button">Delete</a>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th colspan="7">
+            <div class="ui pagination menu" th:if="${page.totalPages} > 1">
+              <a onclick="page(this)" th:attr="data-page=${page.number}-1" class="icon item">
+                <i class="left chevron icon"></i>
+              </a>
+              <a onclick="page(this)" th:attr="data-page=${page.number}+1" class="icon item">
+                <i class="right chevron icon"></i>
+              </a>
+            </div>
+            <a href="#" th:href="@{/admin/blog-manager/input}" class="ui right floated teal basic mini button">Add</a>
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+
+      <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${message}">操作成功！</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--foot part-->
+<footer th:replace="admin/_fragments :: footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
+
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+
+    $('#clear-btn')
+        .on('click', function() {
+            $('.ui.type.dropdown')
+                .dropdown('clear')
+            ;
+        });
+
+    $("#search-btn").click(function () {
+        $("[name='page']").val(0);
+        loaddata();
+    });
+
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/blog-manager/search}]]*/"/admin/blog-manager/search", {
+            title: $("[name='title']").val(),
+            typeId: $("[name='typeId']").val(),
+            recommend: $("[name='recommend']").prop('checked'),
+            page: $("[name='page']").val()
+        });
+    }
+
+    //消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+</script>
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">详情页</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
+  <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
+  <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+  <link rel="stylesheet" href="../static/css/homepage.css" th:href="@{/css/homepage.css}">
+</head>
+<body>
+<!--menu-->
+<nav th:fragment="menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Blog</h2>
+      <a href="#" th:href="@{/}" class="item m-item m-mobile-hide"><i class="home icon"></i>Home Page</a>
+      <a href="#" th:href="@{/types/-1}" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" th:href="@{/tags/-1}" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <a href="#" th:href="@{/archives}" class="item m-item m-mobile-hide"><i class="archive icon"></i>Archive</a>
+      <a href="#" th:href="@{/aboutMe}" class="item m-item m-mobile-hide"><i class="info icon"></i>About Me</a>
+      <div class="right item m-item m-mobile-hide">
+        <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+          <div class="ui icon transparent input">
+            <input type="text" name="query" placeholder="Search..." th:text="${query}">
+            <i onlick="document.forms[''search].submit()" class="search link inverted icon"></i>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+<!--foot part-->
+<footer th:fragment="footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<th:block th:fragment="script">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+  <!--        非绝对路径-->
+  <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+  <script src="../static/lib/tocbot/tocbot.js" th:src="@{/lib/tocbot/tocbot.js}"></script>
+  <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+</th:block>
+
+</body>
+</html>

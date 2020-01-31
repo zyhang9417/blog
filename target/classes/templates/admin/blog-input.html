@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客发布</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/homepage.css">
+  <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" >
+</head>
+<body>
+<!--menu part-->
+<nav th:replace="admin/_fragments :: menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Manager</h2>
+      <a href="#" class="item m-item m-mobile-hide"><i class="home icon"></i>Blog</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <div class="right m-item m-mobile-hide menu">
+        <div class="ui dropdown item">
+          <div class="text">
+            <img class="ui avatar image" src="../../static/images/elliot.jpg">
+            Yuanhang
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a href="#" class="item">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+<div class="ui attached pointing menu">
+  <div class="ui container">
+    <div class="right menu">
+      <a href="#" th:href="@{/admin/blog-manager/input}" class="active teal item">发布</a>
+      <a href="#" th:href="@{/admin/blog-manager}" class="item">列表</a>
+    </div>
+  </div>
+</div>
+
+<!--main part-->
+<div class="m-container m-padding-tb-large">
+  <div class="ui container">
+    <form id="blog-form" action="#" th:object="${blog}" th:action="@{/admin/blog-manager}" method="post" class="ui form segment">
+      <input type="hidden" name="published">
+      <input type="hidden" name="id" th:value="*{id}">
+      <div class="required field">
+        <div class="ui left labeled input">
+          <div class="ui basic teal selection compact dropdown label">
+            <input type="hidden" value="原创" name="flag" th:value="*{flag}">
+            <i class="dropdown icon"></i>
+            <div class="default text">原创</div>
+            <div class="menu">
+              <div class="item" data-value="原创">原创</div>
+              <div class="item" data-value="转载">转载</div>
+              <div class="item" data-value="翻译">翻译</div>
+            </div>
+          </div>
+          <input type="text" name="title" placeholder="title" th:value="*{title}">
+        </div>
+      </div>
+      <div class=" required field">
+        <div id="md-content" style="z-index: 1 !important">
+          <textarea placeholder="input here..." name="content" style="display: none" th:text="*{content}"></textarea>
+        </div>
+      </div>
+      <div class="two fields">
+        <div class=" required field">
+          <div class="ui left labeled input">
+            <label class="ui compact teal basic label">type</label>
+            <div class="ui fluid selection dropdown">
+              <input type="hidden" name="type.id" th:value="*{type} != null ? *{type.id}">
+              <i class="dropdown icon"></i>
+              <div class="default text">type</div>
+              <div class="menu">
+                <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+<!--                <div class="item" data-value="2">linux</div>-->
+<!--                <div class="item" data-value="3">操作系统</div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left labeled input">
+            <label class="ui compact teal basic label">tag</label>
+            <div class="ui fluid multiple search selection dropdown">
+              <input type="hidden" name="tagIds" th:value="*{tagIds}">
+              <i class="dropdown icon"></i>
+              <div class="default text">tag</div>
+              <div class="menu">
+                <div th:each="tag : ${tags}" class="item" data-value="1" th:data-value="${tag.id}" th:text="${tag.name}">错误日志</div>
+<!--                <div class="item" data-value="2">segment tree</div>-->
+<!--                <div class="item" data-value="3">backtracking</div>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="required field">
+        <div class="ui left labeled input">
+          <label class="ui teal basic label">picture</label>
+          <input type="text" name="firstPicture" th:value="*{firstPicture}" placeholder="picture source">
+        </div>
+      </div>
+      <div class="inline fields">
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="recommend" name="recommend" th:checked="${recommend}" class="hidden">
+            <label for="recommend">推荐</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="shareStatement" name="shareStatement" th:checked="${shareStatement}" class="hidden">
+            <label for="shareStatement">转载声明</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="appreciation" name="appreciation" th:checked="${appreciation}" class="hidden">
+            <label for="appreciation">赞赏</label>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            <input type="checkbox" id="comment" name="comment" th:checked="${comment}" class="hidden">
+            <label for="comment">留言</label>
+          </div>
+        </div>
+      </div>
+      <div class="ui error message"></div>
+      <div class="ui right aligned container">
+        <button type="window.history.go(-1)" class="ui button">Back</button>
+        <button type="button" id="save-btn" class="ui secondary button">Save</button>
+        <button type="button" id="publish-btn" class="ui teal button">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--foot part-->
+<footer th:replace="admin/_fragments :: footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+<script>
+    // markdown编辑器
+    var contentEditor;
+    $(function () {
+        contentEditor = editormd("md-content", {
+            width: "100%",
+            height: 640,
+            syncScrolling: "single",
+            // path: "/static/lib/editormd/lib/"
+            path: "/lib/editormd/lib/"
+        });
+    });
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on : 'hover'
+    });
+
+    $('#save-btn').click(function() {
+       $('[name="published"]').val(false);
+       $('#blog-form').submit();
+    });
+
+    $('#publish-btn').click(function() {
+        $('[name="published"]').val(true);
+        $('#blog-form').submit();
+
+    });
+
+    $('.ui.form').form({
+        fields: {
+            title: {
+                identifier: 'title',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input tile'
+                }]
+            },
+            content: {
+                identifier: 'content',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input content'
+                }]
+            },
+            typeId: {
+                identifier: 'typeId',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input type'
+                }]
+            },
+            firstPicture: {
+                identifier: 'firstPicture',
+                rules: [{
+                    type: 'empty',
+                    prompt: 'please input picture source'
+                }]
+            }
+
+        }
+    });
+
+</script>
+</body>
+</html>
+

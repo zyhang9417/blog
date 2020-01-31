@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分类新增</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/homepage.css">
+</head>
+<body>
+<!--menu part-->
+<nav th:replace="admin/_fragments :: menu" class="ui m-color-amazon attached segment m-padding-tb-mini">
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Manager</h2>
+      <a href="#" class="item m-item m-mobile-hide"><i class="home icon"></i>Blog</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="idea icon"></i>Types</a>
+      <a href="#" class="item m-item m-mobile-hide"><i class="tags icon"></i>Tags</a>
+      <div class="right m-item m-mobile-hide menu">
+        <div class="ui dropdown item">
+          <div class="text">
+            <img class="ui avatar image" src="../../static/images/elliot.jpg">
+            Yuanhang
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a href="#" class="item">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black button m-sidebar-top-right m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<!--main part-->
+<div class="m-container-small m-padding-tb-large">
+  <div class="ui container">
+    <form action="#" method="post" th:object="${type}" th:action="*{id}==null ? @{/admin/type-manager} : @{/admin/type-manager/{id}(id=*{id})}" class="ui form segment">
+      <input type="hidden" name="id" th:value="*{id}">
+      <div class="required field">
+        <div class="ui left labeled input">
+          <label class="ui teal basic label">Type</label>
+          <input type="text" name="name" placeholder="Type Name" th:value="*{name}">
+        </div>
+      </div>
+
+      <div class="ui error message"></div>
+      <!--/*/
+      <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+        <i class="close icon"></i>
+        <div class="header">验证失败</div>
+        <p th:errors="*{name}">提交信息不符合规则</p>
+      </div>
+      /*/-->
+      <div class="ui right aligned container">
+        <button type="window.history.go(-1)" class="ui button">Back</button>
+        <button class="ui teal teal button">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--foot part-->
+<footer th:replace="admin/_fragments :: footer" class="ui m-color-amazon vertical segment">
+  <div class="ui container">
+    <div class="ui centered stackable grid">
+      <div class="center aligned column">
+        <div class="ui inverted compact secondary menu">
+          <a href="#" class="item"><i class="github large icon"></i></a>
+          <a href="#" class="item"><i class="linkedin large icon"></i></a>
+          <a href="#" class="item"><i class="facebook large icon"></i></a>
+          <a href="#" class="item"><i class="instagram large icon"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+<script>
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown();
+
+    $('.ui.form').form({
+        fields: {
+            title: {
+                identifier: 'name',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入分类名称'
+                }]
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
